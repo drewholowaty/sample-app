@@ -57,6 +57,18 @@ This application:
    application running as a Podman Quadlet.
 
 ## Future Considerations
+Ideally, one ssh key is created for each cloud environment. Ansible will scan
+the terraform dir, create a group for each sub dir (aws, gcp, azure), and then
+add the hosts generated for those cloud providers in their respective groups,
+with the `ansible_ssh_private_key_file` variable set for each group set to
+`../terraform/<group-name>/<group-name>.pem`
+
+
+One cannot pass a custom parameter to a dynamic inventory script when calling
+it via ansible. Possible solutions are:
+
+- defining the parameter as a system environment variable
+- hard coding it in the inventory script
 
 
 ## Appendix

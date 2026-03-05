@@ -1,0 +1,10 @@
+[project]
+name = "sample-app-ansible"
+version = "0.1.0"
+description = "Ansible Codebase to manage the state of the servers hosting sample-app"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "ansible>=13.4.0",
+    "ruff>=0.15.4",
+]

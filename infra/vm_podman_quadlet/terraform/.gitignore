@@ -1,4 +1,4 @@
 *.tfvars
 .terraform/
 *.tfstate*
-ssh/
+*.pem

@@ -106,13 +106,26 @@ resource "aws_instance" "ec2" {
   }
 }
 
+resource "local_file" "ssh_private_key" {
+  content  = tls_private_key.generated_ssh_key.private_key_pem
+  filename = "aws.pem"
+  file_permission = "0400"
+}
+
 # OUTPUT
-output "ec2_public_ip" {
+output "public_ip" {
   value = aws_instance.ec2.public_ip
 }
 
-resource "local_file" "ssh_private_key" {
-  content  = tls_private_key.generated_ssh_key.private_key_pem
-  filename = "../ssh/${aws_instance.ec2.public_ip}.pem"
+output "hostname" {
+    value = aws_instance.ec2.tags.Name
+}
+
+output "ssh_private_key_file" {
+    value = "aws/${local_file.ssh_private_key.filename}"
+}
+
+output "ssh_user" {
+    value = var.ssh_user
 }
 

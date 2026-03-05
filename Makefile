@@ -29,17 +29,19 @@ s-prod-publish-image: s-build-static-frontend
 	podman push "drewholowaty/drewholowaty:sample-app-i"
 
 # infra
-## aws
-i-aws-install:
-	cd infra/terraform/aws && tofu init -upgrade
-i-aws-deploy-dev: i-aws-install
-	cd infra/terraform/aws && \
+## vm-podman-quadlet
+### aws
+i-vpq-aws-install:
+	cd infra/vm_podman_quadlet/terraform/aws && \
+	tofu init -upgrade
+i-vpq-aws-deploy-dev: i-vpq-aws-install
+	cd infra/vm_podman_quadlet/terraform/aws && \
 	tofu apply -auto-approve -var-file="./dev.tfvars"
-i-aws-destroy-dev:
-	cd infra/terraform/aws && \
+i-vpq-aws-destroy-dev:
+	cd infra/vm_podman_quadlet/terraform/aws && \
 	tofu destroy -auto-approve -var-file="dev.tfvars"
-i-format: # TODO: recursively run tofu fmt in every dir
-	cd infra/terraform/aws && \
+i-tf-format: # TODO: recursively run tofu fmt in every dir
+	cd infra/vm_podman_quadlet/terraform/aws && \
 	tofu fmt
 
 

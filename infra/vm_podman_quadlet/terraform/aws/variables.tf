@@ -38,3 +38,8 @@ variable "ssh_key_name" {
   description = "ssh key pair name"
   type        = string
 }
+
+variable "ssh_user" {
+  description = "ssh user"
+  type        = string
+}
