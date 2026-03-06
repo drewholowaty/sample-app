@@ -59,16 +59,16 @@ Price: $0.0116/hr * 24 hr * 30 days = $8.352 \
 - [Choosing The Right EC2](https://aws.amazon.com/blogs/aws/choosing-the-right-ec2-instance-type-for-your-application/)
 - [EC2 On Demand](https://aws.amazon.com/ec2/pricing/on-demand/)
 
-**vpc**
-free
+**vpc** \
+Price: free
 - [AWS VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)
 
-**internet gateway**
-free
+**internet gateway** \
+Price: free
 - [AWS Internet Gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html)
 
-**subnet**
-free
+**subnet** \
+Price: free
 - [Terraform cidrsubnet Function](https://kitemetric.com/blogs/mastering-terraform-s-cidrsubnet-function-a-comprehensive-guide)
 
 **public ip address** \
