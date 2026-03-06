@@ -1,5 +1,4 @@
 import express from "express";
-import serveStatic from "serve-static";
 import path from "node:path";
 
 const app = express()
