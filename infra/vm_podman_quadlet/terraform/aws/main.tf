@@ -52,32 +52,40 @@ resource "aws_route_table_association" "a" {
   route_table_id = aws_route_table.rt.id
 }
 
-resource "aws_security_group" "allow_ssh_tls" {
-  name   = "allow_ssh_tls"
+resource "aws_security_group" "allow_ssh_https_http" {
+  name   = "allow_ssh_https_http"
   vpc_id = aws_vpc.main.id
   tags = {
-    Name = "allow_ssh_tls"
+    Name = "allow_ssh_https_http"
   }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_ssh_ipv4" {
-  security_group_id = aws_security_group.allow_ssh_tls.id
+  security_group_id = aws_security_group.allow_ssh_https_http.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22
 }
 
-resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
-  security_group_id = aws_security_group.allow_ssh_tls.id
+resource "aws_vpc_security_group_ingress_rule" "allow_https_ipv4" {
+  security_group_id = aws_security_group.allow_ssh_https_http.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 443
   ip_protocol       = "tcp"
   to_port           = 443
 }
 
+resource "aws_vpc_security_group_ingress_rule" "allow_http_ipv4" {
+  security_group_id = aws_security_group.allow_ssh_https_http.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 80
+  ip_protocol       = "tcp"
+  to_port           = 80
+}
+
 resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
-  security_group_id = aws_security_group.allow_ssh_tls.id
+  security_group_id = aws_security_group.allow_ssh_https_http.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1"
 }
@@ -97,7 +105,7 @@ resource "aws_key_pair" "aws_key_pair" {
 resource "aws_instance" "ec2" {
   ami                         = var.ami_id
   instance_type               = var.instance_type
-  security_groups             = ["${aws_security_group.allow_ssh_tls.id}"]
+  security_groups             = ["${aws_security_group.allow_ssh_https_http.id}"]
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.public.id
   key_name                    = var.ssh_key_name

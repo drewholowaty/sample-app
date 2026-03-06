@@ -1,0 +1,12 @@
+---
+- ansible.builtin.shell:
+    cmd: systemctl stop sample-app-web-server
+
+- name: Remove quadlet file
+  ansible.builtin.file:
+    path: '{{quadlet_dir}}/sample-app-web-server.container'
+    state: absent
+
+- ansible.builtin.shell:
+    cmd: systemctl daemon-reload
+...

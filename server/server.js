@@ -3,7 +3,7 @@ import serveStatic from "serve-static";
 import path from "node:path";
 
 const app = express()
-const port = 3000
+const port = process.env.PORT === undefined ? 3000 : process.env.PORT
 
 app.use('/', express.static('dist'))
 

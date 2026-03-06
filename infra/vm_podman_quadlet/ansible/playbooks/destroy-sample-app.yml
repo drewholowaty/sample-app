@@ -1,0 +1,10 @@
+---
+- name: Deploy sample-app to vm
+  become: true
+  hosts: all
+  tasks:
+    - name: Destroy sample app on vm
+      ansible.builtin.include_role:
+        name: sample_app
+        tasks_from: destroy
+...

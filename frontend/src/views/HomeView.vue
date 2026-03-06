@@ -6,7 +6,7 @@
   <ParentContainer color="green">
     <div class="HV-p">
       <div class="HV-c0">
-        <h1>Hello Silex Data!</h1>
+        <h1>Hello World</h1>
         <p>This is your custom application.</p>
       </div>
     </div>

@@ -1,60 +1,79 @@
-# Infra Sample
+# Sample App
+This repository showcases several strategies to deploy a "sample app" NodeJs
+web application to the cloud. Presently, the primary showcase, as seen in
+`infra/vm_podman_quadlet`, deploys the web application as a [Podman
+Quadlet](https://docs.podman.io/en/latest/markdown/podman-quadlet.1.html)
+container via Ansible, operating with a dynamic inventory, to an AWS EC2
+instance spun up with OpenTofu (Terraform). The value of this strategy is that
+it serves as a low cost, relatively simple method to deploy a containerized
+application to the cloud, as compared to using Kubernetes. This strategy is
+perfect for custom support apps with low traffic.
+
+## Requirements
+- `./`
+    - [GNU Make](https://www.gnu.org/software/make/#download)
+- `server/`
+    - [NodeJs](https://nodejs.org/en/download)
+    - [Dockerhub Account](https://hub.docker.com)
+    - [Podman](https://podman.io/docs/installation)
+- `frontend/`
+    - [NodeJs](https://nodejs.org/en/download)
+- `infra/vm_podman_quadlet/ansible`
+    - [uv, a Python package manager](https://docs.astral.sh/uv/getting-started/installation/)
+- `infra/vm_podman_quadlet/terraform`
+    - [OpenTofu](https://opentofu.org/docs/intro/install/)
+
+## Running the Application
+1. Install system requirements, detailed above
+2. Set environment variables
+```
+export DOCKERHUB_ACCOUNT=<docker hub account>
+export DOCKERHUB_PASSWORD=<docker hub password>
+```
+
+3. Configure variables in `infra/vm_podman_quadlet/terraform/aws/dev.tfvars`
+```
+environment    = "dev"
+region         = "us-east-1"
+aws_access_key = "<aws_access_key>"
+aws_secret_key = "<aws_secret_key>"
+instance_type  = "t2.micro"
+
+# https://www.centos.org/download/aws-images/
+ami_id = "ami-0e2065a877604f106"
+
+instance_name = "aws_sampleApp"
+ssh_key_name  = "aws-sample-app-ssh-key"
+ssh_user = "ec2-user" 
+```
+
+4. `make cloud-dev-deploy`
+5. `make cloud-dev-destroy`
+
 ## Resource Summary
-**ec2.t2.micro**
-vCPU: 1
-RAM: 1 GiB
-Price: $0.0116/hr * 24 hr * 30 days = $8.352
+**ec2.t2.micro** \
+vCPU: 1 \
+RAM: 1 GiB \
+Price: $0.0116/hr * 24 hr * 30 days = $8.352 \
 - [EC2 T2 Pricing](https://aws.amazon.com/ec2/instance-types/t2/)
 - [Choosing The Right EC2](https://aws.amazon.com/blogs/aws/choosing-the-right-ec2-instance-type-for-your-application/)
 - [EC2 On Demand](https://aws.amazon.com/ec2/pricing/on-demand/)
+
 **vpc**
 free
 - [AWS VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)
+
 **internet gateway**
 free
 - [AWS Internet Gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html)
+
 **subnet**
 free
 - [Terraform cidrsubnet Function](https://kitemetric.com/blogs/mastering-terraform-s-cidrsubnet-function-a-comprehensive-guide)
 
-**public ip address**
+**public ip address** \
 Price: $0.005/hr * 24 hr * 30 days = $3.60
 - [Public IPv4 Addresses](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-ip-addressing.html#vpc-public-ipv4-addresses)
-
-## TODO
-- Ansible 
-    - dynamic inventory from terraform
-        https://github.com/theurbanpenguin/ansible_terraform_inventory/blob/main/inventory.py
-
-    - install podman on aws
-    - uninstall podman
-- store application image on dockerhub
-- create quadlet files that use dockerhub image and deploy systemd container
-- makefile 
-    - invokes ansible to deploy application
-        - Applies to vm
-            - ansible podman role
-                - deploy
-                - destroy
-            - application role
-                - deploy
-                - destroy
-
-    3. make i-t-azure-deploy
-    4. run playbook that applies roles
-    5. run playbook that removes roles
-    6. make i-t-azure-destroy
-    7. make s-image-dockerhub-remove
-
-- github actions linter
-- implement aws budget to track costs
-
-This application:
-
-- Github actions runs yaml and terraform linter, does not merge into main if it fails
-- Uses Terraform to create a Linux VM on Azure
-- Uses Ansible to deploy onto the Azure VM a VueJS frontend, ExpressJS backend
-   application running as a Podman Quadlet.
 
 ## Future Considerations
 Ideally, one ssh key is created for each cloud environment. Ansible will scan
@@ -74,6 +93,8 @@ it via ansible. Possible solutions are:
 ## Appendix
 ### Bibliography
 - [AWS 2 Ec2s running in a vpc](https://medium.com/@akilblanchard09/creating-aws-ec2-instances-with-ssh-access-using-terraform-f9c3c2996cbd)
+- [Podman Quadlet Tutorial](https://giacomo.coletto.io/blog/podman-quadlets/)
+- [Podman Quadlet Docs](https://docs.podman.io/en/latest/markdown/podman-systemd.unit.5.html)
 
 ### Notes
 ami query is not generalized. unpredicatable. it is

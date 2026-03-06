@@ -107,8 +107,7 @@ def get_inventory(terraform_dir):
                 hostname,
                 ip,
                 {
-                    "ansible_ssh_private_key_file": terraform_dir
-                    + ssh_private_key_file,
+                    "ansible_ssh_private_key_file": terraform_dir + ssh_private_key_file,
                     "ansible_user": ssh_user,
                 },
             )
@@ -139,11 +138,11 @@ def main():
 
     inventory = get_inventory(args.terraform_dir)
     if args.list:
-        return json.dumps(inventory)
+        print(json.dumps(inventory, indent=2))
     elif args.host:
         host_vars = inventory["_meta"]["hostvars"].get(host, {})
-        return json.dumps(host_vars)
+        print(json.dumps(host_vars, indent=2))
 
 
 if __name__ == "__main__":
-    print(main())
+    main()
