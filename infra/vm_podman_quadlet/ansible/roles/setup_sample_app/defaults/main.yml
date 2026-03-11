@@ -1,0 +1,4 @@
+---
+setup_sample_app__quadlet_dir: "/etc/containers/systemd/"
+setup_sample_app__web_server_port: 80
+...

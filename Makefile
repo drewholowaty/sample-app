@@ -47,7 +47,7 @@ i-tf-format: # TODO: recursively run tofu fmt in every dir
 ### ansible
 i-vpq-ansible-deploy-dev: 
 	cd infra/vm_podman_quadlet/ansible && \
-	uv run ansible-playbook -i inventory.py playbooks/deploy-sample-app.yml -e "web_server_image_url='docker.io/${DOCKERHUB_ACCOUNT}/${DOCKERHUB_ACCOUNT}:sample-app-i'"
+	uv run ansible-playbook -i inventory.py playbooks/deploy-sample-app.yml -e "setup_sample_app__web_server_image_url='docker.io/${DOCKERHUB_ACCOUNT}/${DOCKERHUB_ACCOUNT}:sample-app-i'"
 
 # cloud
 cloud-dev-deploy: s-prod-publish-image i-vpq-tf-aws-deploy i-vpq-ansible-deploy-dev

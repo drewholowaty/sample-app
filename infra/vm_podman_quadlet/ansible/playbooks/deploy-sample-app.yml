@@ -9,8 +9,8 @@
         delay: 5
         timeout: 300
   roles:
-    - podman 
-    - sample_app
+    - setup_podman 
+    - setup_sample_app
 
 - name: Print host ips to the console
   hosts: all

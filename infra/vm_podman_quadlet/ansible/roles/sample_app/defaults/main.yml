@@ -1,4 +1,0 @@
----
-quadlet_dir: "/etc/containers/systemd/"
-web_server_port: 80
-...

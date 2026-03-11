@@ -5,6 +5,6 @@
   tasks:
     - name: Destroy sample app on vm
       ansible.builtin.include_role:
-        name: sample_app
+        name: setup_sample_app
         tasks_from: destroy
 ...

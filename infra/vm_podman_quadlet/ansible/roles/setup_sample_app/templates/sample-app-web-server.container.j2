@@ -2,9 +2,9 @@
 Description=sample-app web server container
 
 [Container]
-Image={{ web_server_image_url }}
-Environment=PORT={{ web_server_port }}
-PublishPort={{ web_server_port }}:{{ web_server_port }}
+Image={{ seupt_sample_app__web_server_image_url }}
+Environment=PORT={{ seupt_sample_app__web_server_port }}
+PublishPort={{ seupt_sample_app__web_server_port }}:{{ seupt_sample_app__web_server_port }}
 
 [Service]
 Restart=always

@@ -3,13 +3,13 @@ argument_specs:
   main:
     short_description: Deploys sample-app as a Podman Quadlet on the target machine
     options:
-      quadlet_dir:
+      setup_sample_app__quadlet_dir:
         type: "str"
         default: "/etc/containers/systemd/"
-      web_server_image_url:
+      setup_sample_app__web_server_image_url:
         type: "str"
         required: true
-      web_server_port:
+      setup_sample_app__web_server_port:
         type: "int"
         default: 80
 ...

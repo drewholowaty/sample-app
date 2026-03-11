@@ -95,6 +95,7 @@ it via ansible. Possible solutions are:
 - [AWS 2 Ec2s running in a vpc](https://medium.com/@akilblanchard09/creating-aws-ec2-instances-with-ssh-access-using-terraform-f9c3c2996cbd)
 - [Podman Quadlet Tutorial](https://giacomo.coletto.io/blog/podman-quadlets/)
 - [Podman Quadlet Docs](https://docs.podman.io/en/latest/markdown/podman-systemd.unit.5.html)
+- [Ansible Good Practices](https://github.com/SilexDataTeam/ansible-demos/blob/main/good-practices/ansible-good-practices.md)
 
 ### Notes
 ami query is not generalized. unpredicatable. it is
