@@ -9,16 +9,19 @@
         delay: 5
         timeout: 300
   roles:
-    - setup_podman 
+    - setup_podman
     - setup_sample_app
 
 - name: Print host ips to the console
   hosts: all
+  strategy: linear
   tasks:
-    - ansible.builtin.debug:
+    - name: Print # noqa: run-once[task]
+      ansible.builtin.debug:
         msg: 'Application available at:'
       run_once: true
 
-    - ansible.builtin.debug:
-        msg: 'http://{{ansible_host}}' 
+    - name: Print
+      ansible.builtin.debug:
+        msg: 'http://{{ ansible_host }}'
 ...

@@ -3,5 +3,5 @@
   ansible.builtin.package:
     name:
       - podman
-    state: latest
+    state: 5.8.1
 ...

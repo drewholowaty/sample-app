@@ -1,12 +1,16 @@
 ---
-- ansible.builtin.shell:
-    cmd: systemctl stop sample-app-web-server
+- name: Declare internal variables
+  ansible.builtin.set_fact:
+    __app_name: sample-app-web-server
 
 - name: Remove quadlet file
   ansible.builtin.file:
-    path: '{{quadlet_dir}}/sample-app-web-server.container'
+    path: '{{ setup_sample_app__quadlet_dir }}/{{ __app_name }}.container'
     state: absent
 
-- ansible.builtin.shell:
-    cmd: systemctl daemon-reload
+- name: Stop systemd service
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+    state: stopped
+    name: '{{ __app_name }}'
 ...

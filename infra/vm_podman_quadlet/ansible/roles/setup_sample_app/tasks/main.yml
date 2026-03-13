@@ -1,17 +1,19 @@
 ---
-- ansible.builtin.set_fact:
+- name: Declare internal variables
+  ansible.builtin.set_fact:
     __app_name: sample-app-web-server
 
 - name: Template quadlet files
   ansible.builtin.template:
     src: sample-app-web-server.container.j2
-    dest: '{{setup_sample_app__quadlet_dir}}/{{__app_name}}.container'
+    dest: '{{ setup_sample_app__quadlet_dir }}/{{ __app_name }}.container'
     owner: root
     group: wheel
     mode: '0644'
 
-- ansible.builtin.systemd_service:
+- name: Start systemd service
+  ansible.builtin.systemd_service:
     daemon_reload: true
     state: started
-    name: '{{__app_name}}'
+    name: '{{ __app_name }}'
 ...

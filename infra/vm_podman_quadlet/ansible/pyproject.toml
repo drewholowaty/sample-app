@@ -8,3 +8,9 @@ dependencies = [
     "ansible>=13.4.0",
     "ruff>=0.15.4",
 ]
+
+[dependency-groups]
+dev = [
+    "ansible-dev-tools>=26.2.0",
+    "ansible-lint>=26.3.0",
+]
