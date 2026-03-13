@@ -3,7 +3,6 @@
   ansible.builtin.set_fact:
     __app_name: sample-app-web-server
 
-- name: Template quadlet files
   ansible.builtin.template:
     src: sample-app-web-server.container.j2
     dest: '{{ setup_sample_app__quadlet_dir }}/{{ __app_name }}.container'
