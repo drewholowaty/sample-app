@@ -105,7 +105,7 @@ resource "aws_key_pair" "aws_key_pair" {
 resource "aws_instance" "ec2" {
   ami                         = var.ami_id
   instance_type               = var.instance_type
-  security_groups             = ["${aws_security_group.allow_ssh_https_http.id}"]
+  security_groups             = [aws_security_group.allow_ssh_https_http.id]
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.public.id
   key_name                    = var.ssh_key_name
@@ -115,8 +115,8 @@ resource "aws_instance" "ec2" {
 }
 
 resource "local_file" "ssh_private_key" {
-  content  = tls_private_key.generated_ssh_key.private_key_pem
-  filename = "aws.pem"
+  content         = tls_private_key.generated_ssh_key.private_key_pem
+  filename        = "aws.pem"
   file_permission = "0400"
 }
 
@@ -126,14 +126,14 @@ output "public_ip" {
 }
 
 output "hostname" {
-    value = aws_instance.ec2.tags.Name
+  value = aws_instance.ec2.tags.Name
 }
 
 output "ssh_private_key_file" {
-    value = "aws/${local_file.ssh_private_key.filename}"
+  value = "aws/${local_file.ssh_private_key.filename}"
 }
 
 output "ssh_user" {
-    value = var.ssh_user
+  value = var.ssh_user
 }
 

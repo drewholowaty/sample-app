@@ -52,12 +52,6 @@ i-vpq-tf-aws-deploy: i-vpq-aws-install
 i-vpq-aws-destroy-dev:
 	cd infra/vm_podman_quadlet/terraform/aws && \
 	tofu destroy -auto-approve -var-file="dev.tfvars"
-i-tf-format: # TODO: recursively run tofu fmt in every dir
-	cd infra/vm_podman_quadlet/terraform/aws && \
-	tofu fmt
-i-tf-lint:
-	cd infra/vm_podman_quadlet/terraform/aws && \
-	tofu lint
 
 ### ansible
 i-vpq-ansible-install:
@@ -76,6 +70,12 @@ i-ansible-install: i-vpq-ansible-install
 #i-tf-lint:
 # find . -name "*.tf" -exec dirname {} \; | sort | uniq
 
+i-tf-format: # TODO: recursively run tofu fmt in every dir
+	cd infra/vm_podman_quadlet/terraform/aws && \
+	tofu fmt
+
+i-tf-lint:
+	@find . -name '.tflint.hcl' -execdir sh -c 'for d in "$$@"; do ( tflint --chdir=$$(pwd) ); done' _ {} +
 
 # cloud
 cloud-dev-deploy: s-prod-publish-image i-vpq-tf-aws-deploy i-vpq-ansible-deploy-dev
@@ -83,6 +83,6 @@ cloud-dev-destroy: i-vpq-aws-destroy-dev
 
 # general
 install: f-install s-install i-ansible-install
-lint: f-lint s-lint i-ansible-lint
+lint: f-lint s-lint i-ansible-lint i-tf-lint
 clean: f-clean s-clean
 

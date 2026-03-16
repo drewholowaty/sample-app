@@ -22,6 +22,7 @@ perfect for custom support apps with low traffic.
     - [uv, a Python package manager](https://docs.astral.sh/uv/getting-started/installation/)
 - `infra/vm_podman_quadlet/terraform`
     - [OpenTofu](https://opentofu.org/docs/intro/install/)
+    - [tflint](https://github.com/terraform-linters/tflint)
 
 ## Running the Application
 1. Install system requirements, detailed above
