@@ -67,9 +67,6 @@ i-ansible-lint:
 i-ansible-install: i-vpq-ansible-install
 
 ## terraform general
-#i-tf-lint:
-# find . -name "*.tf" -exec dirname {} \; | sort | uniq
-
 i-tf-format: # TODO: recursively run tofu fmt in every dir
 	cd infra/vm_podman_quadlet/terraform/aws && \
 	tofu fmt
